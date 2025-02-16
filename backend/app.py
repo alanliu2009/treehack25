@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 
 # Load your Zoom verification token
-ZOOM_VERIFICATION_TOKEN = os.getenv("ZOOM_VERIFICATION_TOKEN", "ODMIR2E2TrCWcR705px6pg")
+ZOOM_VERIFICATION_TOKEN = os.getenv("ZOOM_VERIFICATION_TOKEN", "YAA7Hqj3R0WLj5f7oIVnSQ")
 
 @app.route('/zoom-webhook', methods=['POST'])
 def zoom_webhook():
@@ -27,14 +27,12 @@ def zoom_webhook():
         recording_files = data['payload']['object']['recording_files']
         download_token = data['download_token']  # Extract the token
 
-        print(f"Download Token: {download_token}")
+        print(f"✅ Download Token: {download_token}")
 
         for file in recording_files:
             if file['file_extension'].upper() == 'MP4':
                 recording_url = file['download_url']
-                # Append token to URL
-                recording_url = f"{recording_url}?access_token={download_token}"
-                threading.Thread(target=download_zoom_recording, args=(recording_url,)).start()
+                threading.Thread(target=download_zoom_recording, args=(recording_url, download_token)).start()
                 break
 
     return jsonify({"status": "received"}), 200
