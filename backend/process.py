@@ -20,6 +20,7 @@ def process_video(video_path):
 
 if __name__ == "__main__":
     video_file = os.path.join("recordings", "meeting.mp4")
+    print("video file: " + video_file)
     if os.path.exists(video_file):
         process_video(video_file)
     else:
