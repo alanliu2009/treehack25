@@ -9,7 +9,7 @@
 
 ## Running the Program
 
-1. Start by enabling the frontend development server by running 'npm start'.
-2. Enable the backend webhook with 'python3 app.py'.
+1. Start by enabling the frontend development server by running `npm start`.
+2. Enable the backend webhook with `python3 app.py`.
 3. Now, record a Zoom call to the cloud, and your call will automatically retrieved by the webhook.
 4. Check the webpage to get a review of the video sentiment!
