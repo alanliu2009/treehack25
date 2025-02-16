@@ -1,5 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 .App {
   text-align: center;
+  background-color: #282c34;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  --tw-bg-opacity: 1;
+    background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1)) /* #f3f4f6 */;
+    padding: 1rem /* 16px */;
+}
+
+.card {
+  width: 100%;
+  max-width: 28rem /* 448px */;
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    border-radius: 1rem /* 16px */;
+    padding: 1.5rem /* 24px */;
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1)) /* #ffffff */;
+}
+
+.sentiment {
+  width: 100%;
+  height: 1rem /* 16px */;
+  border-radius: 0.5rem /* 8px */;
+}
+
+.sent-text {
+  font-size: 1.125rem /* 18px */;
+    line-height: 1.75rem /* 28px */;
+    font-weight: 600;
+}
+
+.cardheader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem /* 12px */;
+}
+
+.cardcontent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem /* 16px */;
+}
+
+.my-progress {
+  background-color: #14bb33 !important;
 }
 
 .App-logo {
