@@ -10,12 +10,20 @@ app = Flask(__name__)
 # Load your Zoom verification token
 ZOOM_VERIFICATION_TOKEN = os.getenv("ZOOM_VERIFICATION_TOKEN", "YAA7Hqj3R0WLj5f7oIVnSQ")
 RECORDINGS_FOLDER = "recordings"
+latest_video_path = None
+# latest_sentiment_score = None
 
 @app.route('/process_video', methods=['GET'])
-def process_video(video_path):
+def process_video():
+    # global latest_sentiment_score, latest_video_path
+    global latest_video_path
+
+    if not latest_video_path or not os.path.exists(latest_video_path):
+        print("No video found for processing.")
+        return
     """Process the video after downloading (extract frames, analyze sentiment)."""
     print("Extracting frames from video...")
-    frames = extract_frames(video_path)  # Function to extract frames
+    frames = extract_frames(latest_video_path)  # Function to extract frames
 
     print("Analyzing sentiment...")
     avg_sentiment = analyze_faces(frames)  # Function to analyze sentiment
@@ -27,10 +35,13 @@ def process_video(video_path):
         print("Meeting had a **negative** sentiment 😞")
     else:
         print("Meeting was **neutral** 😐")
-    return 50 * (avg_sentiment + 1)
+    ret_sent = 50 * (avg_sentiment + 1)
+    print(ret_sent)
+    return str(ret_sent)
 
 @app.route('/zoom-webhook', methods=['POST'])
 def zoom_webhook():
+    global latest_video_path
     data = request.json
 
     print(f"Received Webhook: {data}")
@@ -60,10 +71,25 @@ def zoom_webhook():
                 # Wait for the file to download (you can implement a better check for file existence)
                 file_path = os.path.join(RECORDINGS_FOLDER, "meeting.mp4")
                 if os.path.exists(file_path):
-                    threading.Thread(target=process_video, args=(file_path,)).start()
+                    latest_video_path = file_path
+                    threading.Thread(target=process_video).start()
                 break
 
     return jsonify({"status": "received"}), 200
+
+# @app.route('/process_video', methods=['GET'])
+# def process_video_endpoint():
+#     """Trigger video processing and return the result."""
+#     threading.Thread(target=process_video).start()
+#     return jsonify({"message": "Processing started"})
+
+
+# @app.route('/video_status', methods=['GET'])
+# def video_status():
+#     """Check if the video processing is done and return the score."""
+#     if latest_sentiment_score is None:
+#         return jsonify({"status": "processing"}), 202
+#     return jsonify({"status": "done", "sentiment_score": latest_sentiment_score})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)

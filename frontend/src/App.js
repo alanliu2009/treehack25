@@ -18,16 +18,20 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  console.log("IN FUNC test");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/process_video");
+        const response = await fetch("http://127.0.0.1:8000/process_video");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        const result = await response.json();
-        console.log(result);
-        setSentiment(result); // Update the state with Flask API response
+        const result = await response.text();
+        console.log("testing new response")
+        console.log(result.text());
+        const intResult = parseInt(result);
+        setSentiment(intResult); // Update the state with Flask API response
       } catch (err) {
         setError(err.message);
       } finally {

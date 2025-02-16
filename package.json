@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@zoom/videosdk": "^2.1.5"
+    "@zoom/videosdk": "^2.1.5",
+    "socket.io-client": "^4.8.1"
   }
 }
