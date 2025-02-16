@@ -16,8 +16,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log("IN FUNC test");
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,8 +28,6 @@ function App() {
           throw new Error("Network response was not ok");
         }
         const result = await response.text();
-        console.log("testing new response")
-        console.log(result.text());
         const intResult = parseInt(result);
         setSentiment(intResult); // Update the state with Flask API response
       } catch (err) {
