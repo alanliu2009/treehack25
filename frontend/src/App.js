@@ -3,8 +3,6 @@ import './App.css';
 import React, { useState, useEffect } from "react";
 // import SentimentAnalysis from './Sentiment';
 
-
-
 // import { useState } from "react";
 import { Progress } from "./components/progress.jsx";
 import { Card, CardContent, CardHeader, CardTitle } from "./components/card.jsx";
@@ -23,7 +21,11 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/process_video");
+        // const response = await fetch("http://127.0.0.1:8000/process_video");
+        const response = await fetch("/process_video", {
+          method: "GET"
+        })
+        
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
