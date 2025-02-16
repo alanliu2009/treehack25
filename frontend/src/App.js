@@ -32,7 +32,7 @@ function App() {
 
       <Card className="card w-full max-w-md shadow-lg rounded-2xl p-6 bg-white">
         <CardHeader className="cardheader flex items-center gap-3">
-          <CardTitle>Zoom Call Sentiment Analysis</CardTitle>
+          <CardTitle className="title">here's how your meeting went :)</CardTitle>
         </CardHeader>
         <CardContent className="cardcontent flex flex-col items-center gap-4">
           {getSentimentIcon(sentiment)}

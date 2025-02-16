@@ -52,6 +52,11 @@
   gap: 1rem /* 16px */;
 }
 
+.title {
+  text-align: center;
+  justify-content: center;
+}
+
 .my-progress {
   background-color: #14bb33 !important;
 }
