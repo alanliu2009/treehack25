@@ -11,6 +11,7 @@ app = Flask(__name__)
 ZOOM_VERIFICATION_TOKEN = os.getenv("ZOOM_VERIFICATION_TOKEN", "YAA7Hqj3R0WLj5f7oIVnSQ")
 RECORDINGS_FOLDER = "recordings"
 
+@app.route('/process_video', methods=['GET'])
 def process_video(video_path):
     """Process the video after downloading (extract frames, analyze sentiment)."""
     print("Extracting frames from video...")
@@ -26,6 +27,7 @@ def process_video(video_path):
         print("Meeting had a **negative** sentiment 😞")
     else:
         print("Meeting was **neutral** 😐")
+    return 50 * (avg_sentiment + 1)
 
 @app.route('/zoom-webhook', methods=['POST'])
 def zoom_webhook():

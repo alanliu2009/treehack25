@@ -14,6 +14,30 @@ import { Frown, Smile, Meh } from "lucide-react";
 
 function App() {
   const [sentiment, setSentiment] = useState(15); // Example sentiment value
+  // IFFFF LOADING, should try and get a diff UI going up here
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/process_video");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const result = await response.json();
+        console.log(result);
+        setSentiment(result); // Update the state with Flask API response
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array ensures it runs once when component mounts
+
 
   const getSentimentIcon = (value) => {
     if (value > 66) return <Smile className="text-green-500 w-8 h-8" />;
